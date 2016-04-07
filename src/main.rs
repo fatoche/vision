@@ -6,6 +6,24 @@ use rscam::{Camera, Config};
 fn main() {
     let mut camera = Camera::new("/dev/video0").unwrap();
 
+    for format in camera.formats() {
+        println!("{:?}", format);
+        let blub = &format.unwrap().format;
+        for resolution in camera.resolutions(blub) {
+            println!("{:?}", resolution);
+            match resolution {
+                rscam::ResolutionInfo::Discretes(v) => {
+                    for (w, h) in v {
+                        for interval in camera.intervals(blub, (w, h)) {
+                            println!("{:?}", interval);
+                        }
+                    }
+                }
+                rscam::ResolutionInfo::Stepwise{..} => {}
+            }
+        }
+    }
+
     camera.start(&Config {
         interval: (1, 30),      // 30 fps.
         resolution: (640, 480),
