@@ -1,0 +1,8 @@
+[package]
+name = "vision"
+version = "0.1.0"
+authors = ["Clara Scherer <git20357@s.cherer.de>"]
+
+[dependencies]
+rscam = "0.5.2"
+image = "0.8.0"
