@@ -5,4 +5,8 @@ authors = ["Clara Scherer <git20357@s.cherer.de>"]
 
 [dependencies]
 rscam = "0.5.2"
-image = "0.8.0"
+image = "0.7"
+camera_capture = "0.3"
+piston_window = "0.40"
+piston-texture = "0.4"
+imageproc = "0.3.0"
