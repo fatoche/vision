@@ -6,16 +6,17 @@ use rscam::{Camera, Config};
 fn main() {
     let mut camera = Camera::new("/dev/video0").unwrap();
 
+    // find and print all possible camera configurations
     for format in camera.formats() {
-        println!("{:?}", format);
+        println!("{:?}", format); // Output format
         let blub = &format.unwrap().format;
         for resolution in camera.resolutions(blub) {
-            println!("{:?}", resolution);
+            println!("{:?}", resolution); // Camera resolution
             match resolution {
                 rscam::ResolutionInfo::Discretes(v) => {
                     for (w, h) in v {
                         for interval in camera.intervals(blub, (w, h)) {
-                            println!("{:?}", interval);
+                            println!("{:?}", interval); // fps
                         }
                     }
                 }
@@ -31,6 +32,7 @@ fn main() {
         ..Default::default()
     }).unwrap();
 
+    // capture 10 images
     for i in 0..10 {
         let frame = camera.capture().unwrap();
         let buf: image::ImageBuffer<image::Rgb<u8>, _> = image::ImageBuffer::from_raw(frame.resolution.0, frame.resolution.1, frame).unwrap();
